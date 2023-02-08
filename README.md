@@ -5,6 +5,6 @@ This code uses torchrun, which  provides a superset of the functionality as torc
 
 ##Usage 
 
-Run the model in a single node with multiple GPUs
+Run the model in a single node with multiple GPUs:
 
 torchrun --standalone --nnodes=1 --nproc_per_node=2 main.py -b 1 -w 1
