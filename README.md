@@ -16,7 +16,7 @@ It is important to note that before extracting the patches, we remove the mammog
 #### MODEL 
 ResNet50
 
-#### Trianing Strategy 
+#### Training Strategy 
 
 The ResNet50 is trained in three stages. All learning parameters are freezing in the first stage except those in the final layer. Then, layers are gradually unfrozen from top to bottom. At the same time, the learning rate is decreased in each stage. The 3-stage training method on S and S10 datasets is as follows:
 1. **First Stage**: Set the learning rate to 1e-3, weight decay to  1e-4, and train only the fully connected layer for three epochs.
