@@ -37,8 +37,8 @@ We train the Resnet50 for 50 epochs in total. However, since the S dataset is mu
 
 | Dataset      | Validation Acc.| Test Acc.     |
 | :---         |     :---:      |          ---: |
-| S            | 0.800          | 0.812         |
-| git diff     | 0.970          | 0.967         |
+| s            | 0.800          | 0.812         |
+| s10          | 0.970          | 0.967         |
 
 ### Whole image Classifier 
 According to the configurations tested in the [paper](https://www.nature.com/articles/s41598-019-48995-4) to convert the patch classifier to a whole Image classifier, the design with the best performance corresponds to the Resnet50 classifier followed by two identical Resnet blocks of [512-512-1024]. Resnet blocks consist of repeated units of three convolutional layers with filter sizes 1x1, 3x3, and 1x1. Therefore, the numbers in the brackets  indicate the depths of the three convolutional layers in each block. Before assembling the Resnet blocks in the patch classifier, the fully connected layer is replaced by a Global Average Pooling, which outputs the average activation of each feature map (there are 2048 feature maps in the last convolutional layer for Resnet50).  We connect the two Resnet blocks to a fully connected layer that predicts one of the classes we want to classify: benign and malignant.
@@ -49,6 +49,14 @@ Similarly to the training method used for the patch classifier, we employ a 2-st
 2. **Second Stage**: Set the Learning rate to 1e-5 and train all layers for 20 epochs.
 
 Due to the GPU memory limit, we decreased the batch size to 12. We optimized the model with Adam and used the same augmentations applied  in the patch classification.  
+
+**Note**: The backbone used in the whole image classifier corresponds to the ResNet50 trained on the s10 patch dataset. 
+
+| Model                    | Validation Acc.| Test Acc.     |
+| :---                     |     :---:      |          ---: |
+| ResNet50+2 ResNet Blocks |     0.857      | 0.856         |
+                                
+
 
 
 
