@@ -3,6 +3,8 @@
 In this repository, I implemented the deep learning classifier introduced in the [paper](https://www.nature.com/articles/s41598-019-48995-4) "Deep Learning to Improve Breast Cancer Detection on Screening Mammography" using PyTorch.  The original code and model are available [here](https://github.com/lishen/end2end-all-conv). However, this  code is in Keras.  
 My  main goal is to provide a  comprehensible implementation of this model, which can be helpful for everyone, especially those who are beginning to work with deep learning and are interested in medical applications.   
 
+The mammography dataset employed in this study is the CBIS_DDSM. [Here](https://github.com/sposso/CBIS-DDSM-DATASET), you can find a short tutorial on setting up the data. 
+
 ## Summary of the main contribution of this paper
 
 The authors propose a breast cancer classifier based on a methodology composed of 2 stages: The first stage consists of a **patch-level classifier** that uses pixel-level annotations from the mammograms to discriminate the regions of interest and train the model only based on those areas. The second stage consists of a **whole image classifier**. This image classifier uses the patch classifier as a backbone, removing only the top layers from the patch classifier while incorporating two additional layers. The training of this whole image classifier  requires only image-level labels. I describe the patch level and the whole image classifiers in more detail as follows: 
