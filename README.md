@@ -64,6 +64,8 @@ Due to the GPU memory limit, we decreased the batch size to 12. We optimized the
 
 **Note**: The backbone used in the whole image classifier corresponds to the ResNet50 trained on the s10 patch dataset. 
 
+##### Trained whole image classifier model is  in the "trained_models" folder 
+
 | Model                    | Validation Acc.| Test Acc.     |
 | :---                     |     :---:      |          ---: |
 | ResNet50+2 ResNet Blocks |     0.857      | 0.856         |
