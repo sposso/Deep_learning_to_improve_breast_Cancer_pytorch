@@ -62,7 +62,7 @@ Similarly to the training method used for the patch classifier, we employ a 2-st
 
 Due to the GPU memory limit, we decreased the batch size to 12. We optimized the model with Adam and used the same augmentations applied  in the patch classification.  
 
-**Note**: The backbone used in the whole image classifier corresponds to the ResNet50 trained on the s10 patch dataset. 
+**Note**: The backbone used in the image classifier corresponds to the ResNet50 trained on the s10 patch dataset. 
 
 ##### Trained whole image classifier model is  in the "trained_models" folder 
 
@@ -73,7 +73,9 @@ Due to the GPU memory limit, we decreased the batch size to 12. We optimized the
 
 ### Heatmaps
 
-In the paper, a patch classifier was utilized in a sliding window manner across the entire image to generate a heatmap indicating the location of the lesions. This can be imagined as a convolutional operation over an image, where instead of performing the dot product between the receptive field and the filter, the receptive field is input into the patch classifier to obtain a value ranging from 0 to 1. The size of the heatmap depends on the dimensions of the mammograms and the patch, as well as the stride at which the patch classifier is moved across the image and the padding.![Example of three different heatmaps](https://github.com/sposso/Deep_learning_to_improve_breast_Cancer_pytorch/blob/main/Heatmaps/heatmaps.png)
+In the paper, the trained patch classifier was utilized in a sliding window manner across the entire image to generate a heatmap indicating the location of the lesions. This can be imagined as a convolutional operation over an image, where instead of performing the dot product between the receptive field and the filter, the receptive field is input into the patch classifier to obtain a value ranging from 0 to 1. The size of the heatmap depends on the dimensions of the mammograms and the patch, as well as the stride at which the patch classifier is moved across the image and the padding.![Example of three different heatmaps](https://github.com/sposso/Deep_learning_to_improve_breast_Cancer_pytorch/blob/main/Heatmaps/heatmaps.png)
+
+##### Generate heatmaps by using the function my_prob_heatmap contained in /Heatmaps/main.py
 
 
 
