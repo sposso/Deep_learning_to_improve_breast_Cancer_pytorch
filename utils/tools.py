@@ -4,10 +4,11 @@ from torch.utils.data import Dataset
 import torchvision.transforms as T
 import pandas as pd
 import numpy as np
+from torch import nn
 from PIL import Image
 import cv2
 import random
-from utils.deformation import get_resampled_images
+
 
 class MyIntensityShift:
     """Intensity shift ± 20 %."""
@@ -83,50 +84,29 @@ def pil_loader(path: str) :
         return img
 
 
-
-    
 class CBIS_MAMMOGRAM(Dataset):
-    def __init__(self,csv_file,res,w,scale,lambd,deformation = False,transform=None):
-        
+    def __init__(self, csv_file, transform=None):
+
         self.annotations = pd.read_csv(csv_file)
         self.transform = transform
-        self.res = res
-        self.w= w
-        self.scale = scale
-        self.lambd = lambd
 
     def __len__(self):
         return len(self.annotations)
 
     def __getitem__(self, index):
-
         img_path = self.annotations.iloc[index,0]
         extension = img_path.split(".")[-1]
         if extension =='png':
 
-            image = torch.tensor(pil_loader(img_path)*(1/65535))
-            #image = segment_breast(image)
+            image = pil_loader(img_path)*(1/65535)
+            image = segment_breast(image)
         elif extension =='npy':
-            image = torch.tensor(np.float32(np.load(img_path)*(1/65535)))
-            #image = segment_breast(image)
-
-        if deformation:
-
-        
-            heat_path = self.annotations.iloc[index,2]
-            heat = torch.tensor(np.load(heat_path))
+            image = np.float32(np.load(img_path)*(1/65535))
+            image = segment_breast(image)
             
-            image= get_resampled_images(image,heat,self.res,self.w,self.scale,self.lambd)
-            image = image.squeeze(dim=0)
-            y_label = torch.tensor(int(self.annotations.iloc[index,3]))
+        y_label = torch.tensor(int(self.annotations.iloc[index,1]))
 
-        else:
-            image = image 
-
-            y_label = torch.tensor(int(self.annotations.iloc[index,1]))
         if self.transform is not None:
             image = self.transform(image)
-            
-            
 
-        return image,y_label
+        return image, y_label
