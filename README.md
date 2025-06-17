@@ -87,7 +87,7 @@ During training, we augment mammograms to promote model generalizability by appl
 -  **Intensity shift**: ±20% of the original pixel values
 -  **Shear**: between `-12°` and `+12°`
 
-We train the Resnet50 for 50 epochs in total. However, since the S dataset is much smaller than s10, we increase the number of epochs in the third stage to 100. The batch size is 256, and we use ADAM as the optimizer.  The model's parameters are initialized with the pre-trained weights in Imagenet.
+We train the ResNet50 model for a total of 50 epochs. However, due to the smaller size of the S dataset compared to s10, we extend the third training stage to 100 epochs for S to ensure sufficient learning. We use a batch size of 256 and optimize the model using the ADAM optimizer. All model parameters are initialized with ImageNet pre-trained weights..
 
 ##### Train patch classifier by using train_function.py in "patch_classifier" folder 
 ##### Trained Patch-level classifier models are in trained_models 
