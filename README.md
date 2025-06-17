@@ -80,11 +80,12 @@ The chosen model for patch classification is **ResNet50**, trained using a **3-s
    - **Epochs**: 37
 
 During training, we augment mammograms to promote model generalizability by applying the following augmentations:
-- Horizontal and vertical flips 
-- Rotations in [-25,25] degrees
-- Zoom in [0.8,1.2] ratio
-- Intensity shift in [-20,20] % of pixel values
-- Shear in [-12,12] grades
+
+-  **Horizontal and vertical flips**
+-  **Random rotations**: between `-25°` and `+25°`
+-  **Zoom**: within a scale of `[0.8, 1.2]`
+-  **Intensity shift**: ±20% of the original pixel values
+-  **Shear**: between `-12°` and `+12°`
 
 We train the Resnet50 for 50 epochs in total. However, since the S dataset is much smaller than s10, we increase the number of epochs in the third stage to 100. The batch size is 256, and we use ADAM as the optimizer.  The model's parameters are initialized with the pre-trained weights in Imagenet.
 
