@@ -55,17 +55,29 @@ python generating_patches.py
 ```
 
 
-#### Preprocessing 
+# Patch Classification with ResNet50
 
-#### MODEL 
-ResNet50
+The chosen model for patch classification is **ResNet50**, trained using a **3-stage fine-tuning strategy** on both the **S** and **s10** datasets. During training, layers are gradually unfrozen from top to bottom while reducing the learning rate at each stage.
 
-#### Training Strategy 
+## 🔁 3-Stage Training Procedure
 
-The ResNet50 is trained in three stages. All learning parameters are freezing in the first stage except those in the final layer. Then, layers are gradually unfrozen from top to bottom. At the same time, the learning rate is decreased in each stage. The 3-stage training method on S and S10 datasets is as follows:
-1. **First Stage**: Set the learning rate to 1e-3, weight decay to  1e-4, and train only the fully connected layer for three epochs.
-2. **Second Stage**: Set the learning rate to 1e-4, weight decay to  1e-4, and train the last three convolutional neural layers and the fully connected layer for ten epochs. <ins> According to the Pytorch notation, these layers correspond to Layer 4.2 and FC </ins>
-3. **Third Stage**: Set Learning rate to  1e-5 and train all layers for 37 epochs
+1. **🔹 Stage 1: Fine-tune Fully Connected Layer**
+   - **Learning rate**: `1e-3`
+   - **Weight decay**: `1e-4`
+   - **Layers trained**: Only the final fully connected (FC) layer
+   - **Epochs**: 3
+
+2. **🔸 Stage 2: Fine-tune Top Layers**
+   - **Learning rate**: `1e-4`
+   - **Weight decay**: `1e-4`
+   - **Layers trained**: Last 3 convolutional layers (PyTorch: `layer4[2]`) and FC layer
+   - **Epochs**: 10
+
+3. **🔻 Stage 3: Fine-tune Entire Network**
+   - **Learning rate**: `1e-5`
+   - **Weight decay**: As previously set
+   - **Layers trained**: All layers in ResNet50
+   - **Epochs**: 37
 
 During training, we augment mammograms to promote model generalizability by applying the following augmentations:
 - Horizontal and vertical flips 
