@@ -5,20 +5,49 @@ My  main goal is to provide a  comprehensible implementation of this model, whic
 
 The mammography dataset employed in this study is the CBIS_DDSM. [Here](https://github.com/sposso/CBIS-DDSM-DATASET), you can find a short tutorial on setting up the data. 
 
-## Summary of the main contribution of this paper
+# Summary of the main contribution of this paper
 
 The authors propose a breast cancer classifier based on a methodology composed of 2 stages: The first stage consists of a **patch-level classifier** that uses pixel-level annotations from the mammograms to discriminate the regions of interest and train the model only based on those areas. The second stage consists of a **whole image classifier**. This image classifier uses the patch classifier as a backbone, removing only the top layers from the patch classifier while incorporating two additional layers. The training of this whole image classifier  requires only image-level labels. I describe the patch level and the whole image classifiers in more detail as follows: 
 
 
-### Patch-Level Classifier
+# First stage:  Patch-Level Classifier
 
-#### Patch Dataset 
-We generate two datasets from all the mammograms. The first dataset (S) consists of one patch extracted from the center of the ROI and another background patch randomly sampled from the same image. The second dataset (s10) consists of 20 patches:  10 patches randomly selected from each ROI, with a minimum overlapping ratio of 0.9, plus 10 patches randomly selected from anywhere in the image other than the ROI. All patches have the size of 224*224 and are saved as 16-bit PNG files. Additionally, the patches are divided into one of the five classes: 0: Background, 1: Malignant Calcification, 2: Benign Calcification, 3: Malignant Mass, and 4: Benign Mass.
-We must remove the mammograms' watermarks before extracting the patches and rescale the pixel values to [0.0,1.0].
+## Patch Dataset Generation from Mammograms
 
-##### Remove watermarks from mammograms by using the segment_breast function located /Patches/tools.py
-##### Generate patches from the mammograms by using the generatin_patches.py script in the "patches" folder.
+We generate two datasets from the mammograms for patch-based classification:
 
+### 📁 Dataset S
+- Contains **2 patches per image**:
+  - 1 patch extracted from the **center of the Region of Interest (ROI)**.
+  - 1 **background patch** randomly sampled from the same image (outside the ROI).
+
+### 📁 Dataset s10
+- Contains **20 patches per image**:
+  - 10 patches **randomly sampled from each ROI** with at least **90% overlap**.
+  - 10 patches **randomly sampled from non-ROI regions**.
+
+### 🖼️ Patch Details
+- **Size**: 224 × 224 pixels  
+- **Format**: 16-bit PNG  
+- **Pixel values**: Rescaled to the range **[0.0, 1.0]**
+- **Watermarks** are removed before patch extraction.
+
+### 🏷️ Class Labels
+Each patch is assigned to one of the following five classes:
+
+| Label | Description               |
+|-------|---------------------------|
+| 0     | Background                |
+| 1     | Malignant Calcification   |
+| 2     | Benign Calcification      |
+| 3     | Malignant Mass            |
+| 4     | Benign Mass               |
+
+To generate both **S** and **s10** patch datasets simultaneously, navigate to the `patches` folder and run the following script:
+
+```bash
+cd patches
+python generating_patches.py
 
 #### Preprocessing 
 We convert mammograms from DICOM files into 16-bit PNG files. Then, we resize the mammograms to 1152*896  pixels. There is no cropping or reorienting of the mammograms. We split  the dataset  into training and test sets using an 85/15 % split. We further split the training set to generate a validation set using a 90/10 % split.   The partitions  are  stratified to maintain the same  proportion of cancer cases across all sets. 
