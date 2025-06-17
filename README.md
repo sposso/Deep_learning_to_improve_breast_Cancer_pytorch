@@ -49,6 +49,9 @@ To generate both **S** and **s10** patch datasets simultaneously, navigate to th
 cd patches
 python generating_patches.py
 
+```
+
+
 #### Preprocessing 
 We convert mammograms from DICOM files into 16-bit PNG files. Then, we resize the mammograms to 1152*896  pixels. There is no cropping or reorienting of the mammograms. We split  the dataset  into training and test sets using an 85/15 % split. We further split the training set to generate a validation set using a 90/10 % split.   The partitions  are  stratified to maintain the same  proportion of cancer cases across all sets. 
 
