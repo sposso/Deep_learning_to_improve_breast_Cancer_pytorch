@@ -11,7 +11,7 @@ The authors propose a breast cancer classifier based on a methodology composed o
 
 # Mammograms preprocessing: 
 
-We convert mammograms from DICOM files into 16-bit PNG files. Then, we resize the mammograms to 1152*896  pixels. There is no cropping or reorienting of the mammograms. We split  the dataset  into training and test sets using an 85/15 % split. We further split the training set to generate a validation set using a 90/10 % split.   The partitions  are  stratified to maintain the same  proportion of cancer cases across all sets. 
+First, we resize the mammograms to 1152*896  pixels while preserving their original aspect ratio to avoid image distortion. To achieve this, we scale each image based on the  new height (1152 pixels ) and calculate the corresponding width using the original aspect ratio. If the resulting width is smaller than the target width (896 pixels), we apply symmetric padding on both sides to reach the desired dimensions (check **resize_function.py** in the patch folder).  Next, we perform breast segmentation to remove the original watermark in the mammograms. Finally, we saved the processed images as 16-bit PNG files (check **resize_main.py** in the patch folder).   There is no reorienting of the mammograms. We use the original split provided by the dataset authors, and we further split the training set to generate a validation set using a 90/10 % split.   The partitions  are  stratified to maintain the same  proportion of cancer cases across all sets. 
 
 # First stage:  Patch-Level Classifier
 
