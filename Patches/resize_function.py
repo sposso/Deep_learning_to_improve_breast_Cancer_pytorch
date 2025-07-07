@@ -27,7 +27,7 @@ def resize_image(image_path,Height_new, Width_new):
     scaling_factor = Height_new / image.shape[0]
     new_size = (int(image.shape[1] * scaling_factor), Height_new)
     
-    #Double check the aspect ratio
+    # Double-check the aspect ratio
     new_aspect_ratio = new_size[0] / new_size[1]
     print(f'New aspect ratio: {new_aspect_ratio:.2f}')
     print(f'Original aspect ratio: {original_ratio:.2f}')
