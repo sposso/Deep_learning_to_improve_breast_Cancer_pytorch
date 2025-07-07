@@ -110,7 +110,7 @@ def overlap_patch_roi(patch_center, patch_size, roi_mask,
     return (inter_area/roi_area > cutoff or inter_area/patch_area > cutoff)
 
 
-def sample_patches(img_,index,label, roi_mask_,folder_s, folder_s10,df_s,df_s10,patch_size=224,
+def sample_patches(img,index,label, roi_mask,folder_s, folder_s10,df_s,df_s10,patch_size=224,
                    pos_cutoff=.9, neg_cutoff=.35,
                    nb_bkg=11, nb_abn=10, start_sample_nb=0,
                    verbose=True):
@@ -125,10 +125,7 @@ def sample_patches(img_,index,label, roi_mask_,folder_s, folder_s10,df_s,df_s10,
 
     index = int(index)
     print(index)
-    img,roi_mask = segment_breast(img_,roi_mask_)
-    if roi_mask.sum()== 0:
-        roi_mask = roi_mask_
-        img= img_
+   
     
     #Check if the mask and the image sizes are equal.
     if img.shape == roi_mask.shape:
