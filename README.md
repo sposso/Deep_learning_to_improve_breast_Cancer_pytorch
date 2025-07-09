@@ -85,7 +85,6 @@ During training, we augment mammograms to promote model generalizability by appl
 -  **Random rotations**: between `-25°` and `+25°`
 -  **Zoom**: within a scale of `[0.8, 1.2]`
 -  **Intensity shift**: ±20 of the pixel values
--  **Shear**: between `-12°` and `+12°`
 
 We train the ResNet50 model for a total of 50 epochs. However, due to the smaller size of the S dataset compared to s10, we extend the third training stage to 200 epochs for S to ensure sufficient learning. We use a batch size of 256 and optimize the model using the ADAM optimizer. All model parameters are initialized with ImageNet pre-trained weights.
 
