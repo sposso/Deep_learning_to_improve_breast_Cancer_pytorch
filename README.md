@@ -32,7 +32,7 @@ We generate two datasets from the mammograms for patch-based classification:
 ### 🖼️ Patch Details
 - **Size**: 224 × 224 pixels  
 - **Format**: 16-bit PNG  
-- **Pixel values**: Rescaled to the range **[0.0, 255]** ans then the average gray scale of the whole patch training set was subtracted. 
+- **Pixel values**: Rescaled to the range **[0.0, 255]** and then the average gray scale of the whole patch training set was subtracted. 
 - **Watermarks** are removed before patch extraction.
 
 ### 🏷️ Class Labels
