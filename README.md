@@ -24,12 +24,12 @@ We generate two datasets from the mammograms for patch-based classification:
   - 1 patch extracted from the **center of the Region of Interest (ROI)**.
   - 1 **background patch** randomly sampled from the same image (outside the ROI).
 
-### 📁 Dataset s10
+###  Dataset s10
 - Contains **20 patches per image**:
   - 10 patches **randomly sampled from each ROI** with at least **90% overlap**.
   - 10 patches **randomly sampled from non-ROI regions**.
 
-### 🖼️ Patch Details
+###  Patch Details
 - **Size**: 224 × 224 pixels  
 - **Format**: 16-bit PNG  
 - **Pixel values**: Rescaled to the range **[0.0, 255]** and then the average gray scale of the whole patch training set was subtracted. 
